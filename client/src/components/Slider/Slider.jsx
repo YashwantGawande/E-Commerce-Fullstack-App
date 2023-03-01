@@ -1,36 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import WestOutlinedIcon from "@mui/icons-material/WestOutlined";
+import data from "./data";
 import "./Slider.scss";
 
 const Slider = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [people, setPeople] = useState(data);
+  const [index, setIndex] = useState(0);
 
-  const data = [
-    "https://images.pexels.com/photos/1549200/pexels-photo-1549200.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    "https://images.pexels.com/photos/949670/pexels-photo-949670.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    "https://images.pexels.com/photos/837140/pexels-photo-837140.jpeg?auto=compress&cs=tinysrgb&w=1600",
-  ];
+  useEffect(() => {
+    const lastIndex = people.length - 1;
+    if (index < 0) {
+      setIndex(lastIndex);
+    }
+    if (index > lastIndex) {
+      setIndex(0);
+    }
+  });
 
-  const prevSlide = () => {
-    setCurrentSlide(currentSlide === 0 ? 2 : (prev) => prev - 1);
-  };
-  const nextSlide = () => {
-    setCurrentSlide(currentSlide === 2 ? 0 : (prev) => prev + 1);
-  };
+  useEffect(() => {
+    let slider = setInterval(() => {
+      setIndex(index + 1);
+    }, 3000);
+
+    return () => clearInterval(slider);
+  }, [index]);
 
   return (
     <div className="slider">
-      <div className="container" style={{transform:`translateX(-${currentSlide * 100}vw)`}}>
-        <img src={data[0]} alt="" />
-        <img src={data[1]} alt="" />
-        <img src={data[2]} alt="" />
+      <div className="container">
+        {people.map((Gallery, imageIndex) => {
+          const { id, name, image } = Gallery;
+          let position = "nextSlide";
+          if (imageIndex === index) {
+            position = "activeSlide";
+          }
+          if (
+            imageIndex === index - 1 ||
+            (index === 0 && imageIndex === people.length - 1)
+          ) {
+            position = "lastSlide";
+          }
+          return (
+            <article className={position} key={id}>
+              <img src={image} alt={name} className={position} key={id} />
+            </article>
+          );
+        })}
       </div>
       <div className="icons">
-        <div className="icon" onClick={prevSlide}>
+        <div className="icon" onClick={() => setIndex(index - 1)}>
           <WestOutlinedIcon />
         </div>
-        <div className="icon" onClick={nextSlide}>
+        <div className="icon" onClick={() => setIndex(index + 1)}>
           <EastOutlinedIcon />
         </div>
       </div>

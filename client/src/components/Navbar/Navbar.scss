@@ -3,7 +3,7 @@
   .wrapper {
     display: flex;
     justify-content: space-between;
-    padding: 10px 30px;
+    padding: 10px 20px;
     .item {
       display: flex;
       align-items: center;
@@ -12,11 +12,13 @@
     .left {
       display: flex;
       align-items: center;
-      gap: 25px;
+      gap: 20px;
     }
     .center {
       img {
-        width: 36px;
+        display: flex;
+        align-items: center;
+        width: 30px;
       }
     }
     .right {
@@ -26,10 +28,13 @@
 
       .icons {
         display: flex;
+        align-items: center;
         gap: 15px;
         color: #777;
         cursor: pointer;
         .cartIcon {
+          display: flex;
+          align-items: center;
           position: relative;
           span {
             font-size: 12px;
@@ -38,8 +43,8 @@
             border-radius: 50%;
             color: white;
             position: absolute;
-            right: -10;
-            top: -10;
+            right: -10px;
+            top: -10px;
             display: flex;
             align-items: center;
             justify-content: center;
