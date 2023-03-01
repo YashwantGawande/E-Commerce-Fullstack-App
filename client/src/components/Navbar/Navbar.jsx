@@ -16,7 +16,10 @@ const Navbar = () => {
       <div className="wrapper">
         <div className="left">
           <div className="item">
-            <img src="" alt="" />
+            <img
+              src="https://cdn-icons-png.flaticon.com/24/3909/3909444.png"
+              alt=""
+            />
             <KeyboardArrowDownIcon />
           </div>
           <div className="item">
@@ -42,6 +45,7 @@ const Navbar = () => {
         <div className="center">
           <Link className="link" to="/">
             <img src="/img/y-icon.png" alt="logo" />
+            
           </Link>
         </div>
         <div className="right">
