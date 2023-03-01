@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "../Card/Card";
-import "./FeaturedProducts.scss"
+import "./FeaturedProducts.scss";
 
 const FeaturedProduct = ({ type }) => {
   const data = [
@@ -40,15 +40,6 @@ const FeaturedProduct = ({ type }) => {
       oldPrice: 19,
       price: 12,
     },
-    {
-      id: 5,
-      img: "https://images.unsplash.com/photo-1677442992191-33e64435ad7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1015&q=80",
-      img2: "https://images.unsplash.com/photo-1677537946795-e5558b7f4601?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1065&q=80",
-      title: "Long Sleeve graphic t shirt",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
   ];
   return (
     <div className="featuredProducts">
@@ -63,7 +54,7 @@ const FeaturedProduct = ({ type }) => {
       </div>
       <div className="bottom">
         {data.map((item) => (
-          <Card item={item} key={item.id}/>
+          <Card item={item} key={item.id} />
         ))}
       </div>
     </div>

@@ -73,7 +73,7 @@ const Navbar = () => {
             <SearchIcon />
             <PersonOutlineOutlinedIcon />
             <FavoriteBorderOutlinedIcon />
-            <div className="cartIcon" onClick="">
+            <div className="cartIcon">
               <ShoppingCartOutlinedIcon />
               <span></span>
             </div>
