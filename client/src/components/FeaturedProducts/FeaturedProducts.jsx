@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../Card/Card";
 import "./FeaturedProducts.scss";
-
+import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 const FeaturedProduct = ({ type }) => {
   const data = [
     {
@@ -41,6 +43,28 @@ const FeaturedProduct = ({ type }) => {
       price: 12,
     },
   ];
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const allData = await axios.get(
+          process.env.REACT_APP_API_URL + "/products",
+          {
+            headers: {
+              Authorization: "bearer " + process.env.REACT_APP_API_TOKEN,
+            },
+          }
+        );
+        console.log(allData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="featuredProducts">
       <div className="top">
