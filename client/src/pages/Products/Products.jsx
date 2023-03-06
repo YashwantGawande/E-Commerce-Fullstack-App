@@ -8,7 +8,7 @@ import "./Products.scss";
 const Products = () => {
   const catId = parseInt(useParams().id);
   const [max, setMax] = useState(1000);
-  const [sort, setSort] = useState(null);
+  const [sort, setSort] = useState("asc");
   const [selectSubCats, setSelectedSubCats] = useState([]);
 
   const { data, loading, error } = useFetch(
@@ -87,7 +87,7 @@ const Products = () => {
           src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
           alt=""
         />
-        <List catId={catId} max={max} sort={sort} subCats={selectSubCats}/>
+        <List catId={catId} max={max} sort={sort} subCats={selectSubCats} />
       </div>
     </div>
   );
