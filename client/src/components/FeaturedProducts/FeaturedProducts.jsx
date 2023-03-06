@@ -1,69 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Card from "../Card/Card";
 import "./FeaturedProducts.scss";
-import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();
+import useFetch from "../../hooks/useFetch";
+
 const FeaturedProduct = ({ type }) => {
-  const data = [
-    {
-      id: 1,
-      img: "https://images.unsplash.com/photo-1677442992191-33e64435ad7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1015&q=80",
-      img2: "https://images.unsplash.com/photo-1677537946795-e5558b7f4601?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1065&q=80",
-      title: "Long Sleeve graphic t shirt",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 2,
-      img: "https://images.unsplash.com/photo-1677442992191-33e64435ad7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1015&q=80",
-      img2: "https://images.unsplash.com/photo-1677537946795-e5558b7f4601?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1065&q=80",
-      title: "Long Sleeve graphic t shirt",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 3,
-      img: "https://images.unsplash.com/photo-1677442992191-33e64435ad7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1015&q=80",
-      img2: "https://images.unsplash.com/photo-1677537946795-e5558b7f4601?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1065&q=80",
-      title: "Long Sleeve graphic t shirt",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 4,
-      img: "https://images.unsplash.com/photo-1677442992191-33e64435ad7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1015&q=80",
-      img2: "https://images.unsplash.com/photo-1677537946795-e5558b7f4601?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1065&q=80",
-      title: "Long Sleeve graphic t shirt",
-      isNew: true,
-      oldPrice: 19,
-      price: 12,
-    },
-  ];
-
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const allData = await axios.get(
-          process.env.REACT_APP_API_URL + "/products",
-          {
-            headers: {
-              Authorization: "bearer " + process.env.REACT_APP_API_TOKEN,
-            },
-          }
-        );
-        console.log(allData);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
+  const { data, loading, error } = useFetch(
+    `/products?populate=*&[filters][type][$eq]=${type}`
+  );
 
   return (
     <div className="featuredProducts">
@@ -77,9 +20,11 @@ const FeaturedProduct = ({ type }) => {
         </p>
       </div>
       <div className="bottom">
-        {data.map((item) => (
-          <Card item={item} key={item.id} />
-        ))}
+        {error
+          ? "Something went wrong!"
+          : loading
+          ? "loading"
+          : data?.map((item) => <Card item={item} key={item.id} />)}
       </div>
     </div>
   );
