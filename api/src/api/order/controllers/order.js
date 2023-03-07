@@ -1,4 +1,4 @@
-const stripe = require("stripe")(import.meta.env.STRIPE_KEY);
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 ("use strict");
 
 /**
@@ -31,8 +31,8 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
     try {
       const session = stripe.checkout.create({
         mode: "payment",
-        success_url: `${import.meta.env.CLIENT_URL}?success=true`,
-        cancel_url: `${import.meta.env.CLIENT_URL}?success=false`,
+        success_url: `${process.env.CLIENT_URL}?success=true`,
+        cancel_url: `${process.env.CLIENT_URL}?success=false`,
         line_items: lineItems,
         shipping_address_collection: { allowed_countries: ["US", "CA"] },
         payment_method_types: ["card"],
